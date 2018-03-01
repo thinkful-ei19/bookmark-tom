@@ -10,20 +10,46 @@ const api = (function () {
   };
 
   const createBookmark = function (data, callback) {
-    const bookmark = {
+    $.ajax({
       url: BASE_URL,
       method: 'POST',
       contentType: 'application/json',
       data: JSON.stringify(data),
       success: callback
-    };
+    });
   };
-// editBookmark in the future
+  const updateBookmark = function (id, updateData, callback) {
+    let stringUp = JSON.stringify(updateData);
+    $.ajax({
+      url: `${BASE_URL}/${id}`,
+      method: 'PATCH',
+      contentType: 'application/json',
+      dataType: 'json',
+      data: stringUp,
+      success: (response) => {
+        console.log(response);
+        callback(response);
+      }
+    });
+  };
+
+  const deleteBookmark = function (id, callback) {
+    $.ajax({
+      url: `${BASE_URL}/${id}`,
+      method: 'DELETE',
+      contentType: 'application/json',
+      dataType: 'json',
+      data: '',
+      success: callback
+    });
+  };
 
 
   return {
     getBookmark,
-    createBookmark
+    createBookmark,
+    updateBookmark,
+    deleteBookmark
   };
 
 }());
