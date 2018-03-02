@@ -1,4 +1,4 @@
-/* global store, api*/
+/* global $, store , api*/
 'use strict';
 // eslint-disable-next-line no-unused-vars
 const eventhandle = (function () {
@@ -16,13 +16,14 @@ const eventhandle = (function () {
 
   // this function maps through bookmarks and invokes the generateBookmarkElement function to create html for each entry in bookmarks
   // untested
-  function generateBookmarkString(bookmarks) {
+  function generateBookmarkString(items) {
     const links = store.items.map((item) => generateBookmarkElement(item));
+    console.log('generate string ran');
     return links.join('');
+    
   }
 
   // render function 
-  // needs works
   function render() {
     let items = store.items;
     if (store.adding) {
@@ -48,15 +49,18 @@ const eventhandle = (function () {
 
 
   function handleNewBookmarkSubmit() {
-    $('.submit').submit(function (event) {
+    $('#js-add-bookmark-form').submit(function (event) {
+      console.log('handleNewBookmark Submit ran');
       event.preventDefault();
-      const newItemName = $(event.currentTarget).find('.title').val();
-      const newItemDes = $(event.currentTarget).find('.description').val();
-      const newItemUrl = $(event.currentTarget).find('.url').val();
-      const newItemStars = $('.stars').val();
+      const newItemName = $('.title').val();
+      const newItemDes = $('.description').val();
+      const newItemUrl = $('.url').val();
+      const newItemStars = $('.stars').val([1,2,3,4,5]);
+      console.log(newItemName);
       const data = {newItemName, newItemDes, newItemUrl, newItemStars};
+      console.log(data);
       api.createBookmark(data, (newItem) => {
-        store.toggleAdding();;
+        store.toggleAdding();
         render();
       });
     });
@@ -74,7 +78,7 @@ const eventhandle = (function () {
 
   function handleBookmarkDetailedView() {
     $('.bookmarks').on('click', '.js-bookmark-element', event => {
-      const id = getItemIdFromElement(event.currentTarget);
+      const id = getBookmarkIdFromElement(event.currentTarget);
       const item = store.findById(id);
       api.updateBookmark(id, { checked: !item.checked }, () => {
         store.findAndUpdate(id, { checked: !item.checked });
@@ -87,7 +91,7 @@ const eventhandle = (function () {
 
   function handleDeleteBookmark() {
     $('.bookmarks').on('click', '.bookmark-delete', event => {
-      const id = getItemIdFromElement(event.currentTarget);
+      const id = getBookmarkIdFromElement(event.currentTarget);
       api.deleteBookmark(id, () => {
         store.findAndDelete(id);
         render();
@@ -107,12 +111,12 @@ const eventhandle = (function () {
 
   // this listener will check for when the user select the minimum star sort
   // complete *untested
-  function handleRatingToggle() {
-    $('select').change(function () {
-      store.toggleStars();
-      render();
-    });
-  }
+  // function handleRatingToggle() {
+  //   $('select').change(function () {
+  //     store.toggleStars();
+  //     render();
+  //   });
+  // }
 
 
 
@@ -122,8 +126,7 @@ const eventhandle = (function () {
     handleNewBookmarkSubmit();
     handleBookmarkDetailedView();
     handleDeleteBookmark();
-    //  handleEditBookmarkSubmit();
-    handleRatingToggle();
+    //handleRatingToggle();
     handleAddBookmark();
   }
 
