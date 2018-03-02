@@ -26,6 +26,11 @@ const store = (function () {
     this.adding = !this.adding;
   };
 
+  const toggleIntro = function () {
+    console.log('intro gone');
+    this.added = !this.added;
+  };
+
 
 
   return {
@@ -36,7 +41,8 @@ const store = (function () {
     findById,
     findAndDelete,
     toggleExpandedView,
-    toggleAdding
+    toggleAdding,
+    toggleIntro
   };
 
 }());

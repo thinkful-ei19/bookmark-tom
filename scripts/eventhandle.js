@@ -4,18 +4,26 @@
 const eventhandle = (function () {
 
 // this function will genereate the bookmark html after a user  uses the add bookmark button
-// untested
+// tested
+
   function generateBookmarkElement(bookmarks) {
     let bookmarkTitle = `<span>${bookmarks.title}</span>`;
+    let bookmarkStars = `<span>${bookmarks.rating}</span>`;
+    let bookmarkDes = `<p>${bookmarks.desc}</p>`;
+    let link = `<span href='${bookmarks.url}'></span>`;
     return `
       <li class="js-bookmark-element"${bookmarks.id}">
         ${bookmarkTitle}
+        ${bookmarkStars}
+        ${bookmarkDes}
+        ${link}
       </li>`;
   }
 
 
   // this function maps through bookmarks and invokes the generateBookmarkElement function to create html for each entry in bookmarks
-  // untested
+  // tested
+  
   function generateBookmarkString(items) {
     const links = store.bookmarks.map((item) => generateBookmarkElement(item));
     console.log('generate string ran');
@@ -24,12 +32,16 @@ const eventhandle = (function () {
   }
 
   // render function 
+  
   function render() {
     let items = store.bookmarks;
     if (store.adding) {
       $('.adding').show();
     } else {
       $('.adding').hide();
+    }
+    if (store.added) {
+      $('#first-bookmark').hide();
     }
     console.log('`render` ran');
     const bookmarksString = generateBookmarkString(items);
@@ -39,28 +51,31 @@ const eventhandle = (function () {
   }
 
 
+// tested
+
   function handleAddBookmark() {
     $('.bookmark-add').on('click', event => {
       store.toggleAdding();
       render();
     });
   }
-    
 
+// tested
 
   function handleNewBookmarkSubmit() {
     $('#js-add-bookmark-form').submit(function (event) {
       console.log('handleNewBookmark Submit ran');
       event.preventDefault();
       const title = $('.title').val();
-      const description = $('.description').val();
+      const desc = $('.description').val();
       const url = $('.url').val();
-      const stars = $('.stars').val([1,2,3,4,5]);
-      const data = {title, description, url, stars};
+      const rating = $('.stars').val();
+      const data = {title, desc, url, rating};
       console.log(data);
       api.createBookmark(data, (newItem) => {
         store.toggleAdding();
         store.addBookmark(newItem);
+        store.toggleIntro();
         render();
       });
     });
