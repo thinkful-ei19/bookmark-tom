@@ -3,11 +3,12 @@
 // eslint-disable-next-line no-unused-vars
 const eventhandle = (function () {
 
-// this function will generate the bookmark html after a user  uses the add bookmark button
-// tested
+  // this function will generate the bookmark html after a user  uses the add bookmark button
+  // tested
 
   function generateBookmarkElement(bookmarks) {
-    return `
+    if (bookmarks.expanded) {
+      return `
          <li class='js-bookmark-element' data-bookmark-id=${bookmarks.id}>
     <div class='not-extended'>
         <p><h1 class='bookmark-title'>${bookmarks.title}</h1>
@@ -21,30 +22,53 @@ const eventhandle = (function () {
               </button>
         </div>
     </div>
-    <div class='hidden'>
+    <div class='expanded hidden'>
       <p class='desc'>${bookmarks.desc}</p>
-      <form action = ${ bookmarks.url }> 
+      <form action = ${ bookmarks.url}> 
       <input type="submit" value='Link to site' >
       </form >
     </div>
 </li>`;
+    } else {
+      return `
+         <li class='js-bookmark-element' data-bookmark-id=${bookmarks.id}>
+    <div class='not-extended'>
+        <p><h1 class='bookmark-title'>${bookmarks.title}</h1>
+        <span class='bookmark-rating'>${bookmarks.rating}</span></p>
+        <div class="bookmark-controls">
+              <button class="bookmark-expand">
+                <span class="button-label">View Details</span>
+              </button>
+              <button class="bookmark-delete">
+                <span class="button-label">Delete Bookmark</span>
+              </button>
+        </div>
+    </div>
+    <div class='expanded'>
+      <p class='desc'>${bookmarks.desc}</p>
+      <form action = ${ bookmarks.url}> 
+      <input type="submit" value='Link to site' >
+      </form >
+    </div>
+    </li>`;
+    }    
   }
-
 
   // this function maps through bookmarks and invokes the generateBookmarkElement function to create html for each entry in bookmarks
   // tested
-  
+
   function generateBookmarkString(items) {
     const links = store.bookmarks.map((item) => generateBookmarkElement(item));
     console.log('generate string ran');
     return links.join('');
-    
+
   }
 
   // render function 
-  
+
   function render() {
     let items = store.bookmarks;
+    console.log(items);
     if (store.adding) {
       $('.adding').show();
     } else {
@@ -58,6 +82,8 @@ const eventhandle = (function () {
     $('.bookmarks').html(bookmarksString);
   }
 
+  // tested
+
   function handleIntro() {
     let numOfBookmarks = $('.bookmarks ul').length;
     console.log(numOfBookmarks);
@@ -67,7 +93,7 @@ const eventhandle = (function () {
       render();
     }
   }
-  
+
 
 
   // tested
@@ -90,16 +116,17 @@ const eventhandle = (function () {
       const url = $('.url').val();
       const rating = $('.stars').val();
       const expanded = false;
-      const data = {title, desc, url, rating, expanded};
+      const data = { title, desc, url, rating, expanded };
       console.log(data);
       api.createBookmark(data, (newItem) => {
         store.toggleAdding();
         store.addBookmark(newItem);
-        store.toggleIntro();
         render();
       });
     });
   }
+
+  //tested
 
   function getBookmarkIdFromElement(bookmark) {
     return $(bookmark)
@@ -114,12 +141,11 @@ const eventhandle = (function () {
   function handleBookmarkDetailedView() {
     $('.bookmarks').on('click', '.bookmark-expand', event => {
       const id = getBookmarkIdFromElement(event.currentTarget);
-      const item = store.findById(id);
-      store.toggleExpandedView(item);
+      store.toggleExpandedView(id);
       render();
     });
   }
-  
+
 
   // this listerner will handle when a user clicks on the delete bookmark option
 
@@ -133,7 +159,7 @@ const eventhandle = (function () {
       });
     });
   }
- 
+
   // this listener will handle when a user clicks on the edit bookmark option
   // uncomplete untested
   // function handleEditBookmarkSubmit() {
@@ -158,12 +184,12 @@ const eventhandle = (function () {
 
 
   function bindEventListeners() {
+    handleIntro();
     handleNewBookmarkSubmit();
     handleBookmarkDetailedView();
     handleDeleteBookmark();
     //handleRatingToggle();
     handleAddBookmark();
-    handleIntro();
   }
 
   // This object contains the only exposed methods from this module:

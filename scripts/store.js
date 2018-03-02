@@ -16,9 +16,9 @@ const store = (function () {
     console.log('findAndDelete ran');
   };
 
-  const toggleExpandedView = function (bookmarks) {
-    this.bookmarks = bookmarks.expanded = true;
-    console.log('ExpandedView ran');
+  const toggleExpandedView = function (id) {
+    const expandBookmark = this.bookmarks.find(item => item.id === id);
+    expandBookmark.expanded = !expandBookmark.expanded;
   };
 
   const toggleAdding = function () {
@@ -35,7 +35,6 @@ const store = (function () {
 
   return {
     bookmarks: [],
-    expanded: false,
     adding: false,
     addBookmark,
     findById,
