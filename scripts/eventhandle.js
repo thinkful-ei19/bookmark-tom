@@ -24,9 +24,9 @@ const eventhandle = (function () {
     </div>
     <div class='expanded hidden'>
       <p class='desc'>${bookmarks.desc}</p>
-      <form action = ${ bookmarks.url}> 
-      <input type="submit" value='Link to site' >
-      </form >
+       <a href="${bookmarks.url}">
+          <img src='bookmark-tom/icons8-link-50.png'></img>
+          </a>
     </div>
 </li>`;
     } else {
@@ -46,9 +46,7 @@ const eventhandle = (function () {
     </div>
     <div class='expanded'>
       <p class='desc'>${bookmarks.desc}</p>
-      <form action = ${ bookmarks.url}> 
-      <input type="submit" value='Link to site' >
-      </form >
+      <a href="${bookmarks.url}"> <img src="bookmark-tom/link.png"> </img> </a>
     </div>
     </li>`;
     }    
@@ -56,7 +54,7 @@ const eventhandle = (function () {
 
   // this function maps through bookmarks and invokes the generateBookmarkElement function to create html for each entry in bookmarks
   // tested
-
+  // eslint-disable-next-line no-unused-vars
   function generateBookmarkString(items) {
     const links = store.bookmarks.map((item) => generateBookmarkElement(item));
     console.log('generate string ran');
@@ -68,6 +66,8 @@ const eventhandle = (function () {
 
   function render() {
     let items = store.bookmarks;
+    console.log(items);
+    items.filter(item => item.rating >= 3);
     console.log(items);
     if (store.adding) {
       $('.adding').show();
@@ -99,6 +99,7 @@ const eventhandle = (function () {
   // tested
 
   function handleAddBookmark() {
+    // eslint-disable-next-line no-unused-vars
     $('.bookmark-add').on('click', event => {
       store.toggleAdding();
       render();
@@ -170,16 +171,14 @@ const eventhandle = (function () {
   // }
 
 
-  // this listener will check for when the user select the minimum star sort
-  // complete *untested
-  // function handleRatingToggle() {
-  //   $('select').change(function () {
-  //     store.toggleStars();
-  //     render();
-  //   });
-  // }
-
-
+  function handleStars() {
+    $('.stars').on('change', function () {
+      const stars = $('.stars').val();
+      console.log(stars);
+      store.ratingToggle(stars);
+      render();
+    });
+  }
 
 
 
@@ -188,7 +187,7 @@ const eventhandle = (function () {
     handleNewBookmarkSubmit();
     handleBookmarkDetailedView();
     handleDeleteBookmark();
-    //handleRatingToggle();
+    handleStars();
     handleAddBookmark();
   }
 

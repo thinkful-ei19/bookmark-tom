@@ -31,17 +31,24 @@ const store = (function () {
     this.added = !this.added;
   };
 
+  const ratingToggle = function () {
+    console.log('rating sorted');
+    this.minRating = !this.minRating;
+  };
+
 
 
   return {
     bookmarks: [],
     adding: false,
+    minRating: 1,
     addBookmark,
     findById,
     findAndDelete,
     toggleExpandedView,
     toggleAdding,
-    toggleIntro
+    toggleIntro,
+    ratingToggle
   };
 
 }());
