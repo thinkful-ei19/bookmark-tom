@@ -1,8 +1,8 @@
-/* global Item */
+/* global  */
 'use strict';
 // eslint-disable-next-line no-unused-vars
 const store = (function () {
-  const addItem = function (item) {
+  const addBookmark = function (item) {
     this.items.push(item);
   };
 
@@ -21,27 +21,26 @@ const store = (function () {
     this.items = this.items.filter(item => item.id !== id);
   };
 
-
-
   const toggleCheckedFilter = function () {
-    this.hideCheckedItems = !this.hideCheckedItems;
+    this.expanded = !this.expanded;
   };
 
-  const setSearchTerm = function (term) {
-    this.searchTerm = term;
+  const toggleAdding = function () {
+    this.adding = !this.adding;
   };
+
+
 
   return {
     items: [],
-    hideCheckedItems: false,
-    searchTerm: '',
-
-    addItem,
+    expanded: false,
+    adding: false,
+    addBookmark,
     findById,
     findAndDelete,
     toggleCheckedFilter,
-    setSearchTerm,
-    findAndUpdate
+    findAndUpdate,
+    toggleAdding
   };
 
 }());

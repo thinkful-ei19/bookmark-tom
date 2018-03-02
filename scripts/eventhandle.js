@@ -1,14 +1,14 @@
-'use strict';
 /* global store, api*/
+'use strict';
 // eslint-disable-next-line no-unused-vars
-const bookmarks = (function () {
+const eventhandle = (function () {
 
 // this function will genereate the bookmark html after a user  uses the add bookmark button
 // untested
-  function generateBookmarkElement(item) {
-    let bookmarkTitle = `<span class="bookmark bookmark__checked">${bookmarks.title}</span>`;
+  function generateBookmarkElement(bookmarks) {
+    let bookmarkTitle = `<span>${bookmarks.title}</span>`;
     return `
-      <li class="js-bookmark-element" data-item-id="${bookmarks.id}">
+      <li class="js-bookmark-element"${bookmarks.id}">
         ${bookmarkTitle}
       </li>`;
   }
@@ -17,7 +17,7 @@ const bookmarks = (function () {
   // this function maps through bookmarks and invokes the generateBookmarkElement function to create html for each entry in bookmarks
   // untested
   function generateBookmarkString(bookmarks) {
-    const links = bookmarks.map((item) => generateBookmarkElement(item));
+    const links = store.items.map((item) => generateBookmarkElement(item));
     return links.join('');
   }
 
@@ -25,23 +25,38 @@ const bookmarks = (function () {
   // needs works
   function render() {
     let items = store.items;
-    console.log(items);
-    // render the shopping list in the DOM
+    if (store.adding) {
+      $('.adding').show();
+    } else {
+      $('.adding').hide();
+    }
     console.log('`render` ran');
     const bookmarksString = generateBookmarkString(items);
-
+    console.log(bookmarksString);
     // insert that HTML into the DOM
     $('.bookmarks').html(bookmarksString);
   }
 
 
+  function handleAddBookmark() {
+    $('.bookmark-add').on('click', event => {
+      store.toggleAdding();
+      render();
+    });
+  }
+    
+
+
   function handleNewBookmarkSubmit() {
-    $('#add-button').submit(function (event) {
+    $('.submit').submit(function (event) {
       event.preventDefault();
-      const newItemName = $('.bookmark-add').val();
-      $('.bookmark-add').val('');
-      api.createBookmark(newItemName, (newItem) => {
-        store.addItem(newItem);
+      const newItemName = $(event.currentTarget).find('.title').val();
+      const newItemDes = $(event.currentTarget).find('.description').val();
+      const newItemUrl = $(event.currentTarget).find('.url').val();
+      const newItemStars = $('.stars').val();
+      const data = {newItemName, newItemDes, newItemUrl, newItemStars};
+      api.createBookmark(data, (newItem) => {
+        store.toggleAdding();;
         render();
       });
     });
@@ -82,12 +97,12 @@ const bookmarks = (function () {
  
   // this listener will handle when a user clicks on the edit bookmark option
   // uncomplete untested
-  function handleEditBookmarkSubmit() {
-    api.updateBookmark(id, { name: itemName }, () => {
-      store.findAndUpdate(id, { name: itemName });
-      render();
-    });
-  }
+  // function handleEditBookmarkSubmit() {
+  //   api.updateBookmark(id, { name: title rate  }, () => {
+  //     store.findAndUpdate(id, { name: itemName });
+  //     render();
+  //   });
+  // }
 
 
   // this listener will check for when the user select the minimum star sort
@@ -100,12 +115,16 @@ const bookmarks = (function () {
   }
 
 
+
+
+
   function bindEventListeners() {
     handleNewBookmarkSubmit();
     handleBookmarkDetailedView();
     handleDeleteBookmark();
-    handleEditBookmarkSubmit();
+    //  handleEditBookmarkSubmit();
     handleRatingToggle();
+    handleAddBookmark();
   }
 
   // This object contains the only exposed methods from this module:
