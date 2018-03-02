@@ -17,7 +17,7 @@ const eventhandle = (function () {
   // this function maps through bookmarks and invokes the generateBookmarkElement function to create html for each entry in bookmarks
   // untested
   function generateBookmarkString(items) {
-    const links = store.items.map((item) => generateBookmarkElement(item));
+    const links = store.bookmarks.map((item) => generateBookmarkElement(item));
     console.log('generate string ran');
     return links.join('');
     
@@ -25,7 +25,7 @@ const eventhandle = (function () {
 
   // render function 
   function render() {
-    let items = store.items;
+    let items = store.bookmarks;
     if (store.adding) {
       $('.adding').show();
     } else {
@@ -52,15 +52,15 @@ const eventhandle = (function () {
     $('#js-add-bookmark-form').submit(function (event) {
       console.log('handleNewBookmark Submit ran');
       event.preventDefault();
-      const newItemName = $('.title').val();
-      const newItemDes = $('.description').val();
-      const newItemUrl = $('.url').val();
-      const newItemStars = $('.stars').val([1,2,3,4,5]);
-      console.log(newItemName);
-      const data = {newItemName, newItemDes, newItemUrl, newItemStars};
+      const title = $('.title').val();
+      const description = $('.description').val();
+      const url = $('.url').val();
+      const stars = $('.stars').val([1,2,3,4,5]);
+      const data = {title, description, url, stars};
       console.log(data);
       api.createBookmark(data, (newItem) => {
         store.toggleAdding();
+        store.addBookmark(newItem);
         render();
       });
     });
