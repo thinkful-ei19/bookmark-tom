@@ -3,7 +3,7 @@
 // eslint-disable-next-line no-unused-vars
 const eventhandle = (function () {
 
-// this function will genereate the bookmark html after a user  uses the add bookmark button
+// this function will generate the bookmark html after a user  uses the add bookmark button
 // tested
 
   function generateBookmarkElement(bookmarks) {
@@ -55,10 +55,19 @@ const eventhandle = (function () {
     }
     console.log('`render` ran');
     const bookmarksString = generateBookmarkString(items);
-    // console.log(bookmarksString);
-    // insert that HTML into the DOM
     $('.bookmarks').html(bookmarksString);
   }
+
+  function handleIntro() {
+    let numOfBookmarks = $('.bookmarks ul').length;
+    console.log(numOfBookmarks);
+    if (numOfBookmarks >= 1) {
+      store.toggleIntro();
+      console.log('intro gone');
+      render();
+    }
+  }
+  
 
 
   // tested
@@ -154,6 +163,7 @@ const eventhandle = (function () {
     handleDeleteBookmark();
     //handleRatingToggle();
     handleAddBookmark();
+    handleIntro();
   }
 
   // This object contains the only exposed methods from this module:
