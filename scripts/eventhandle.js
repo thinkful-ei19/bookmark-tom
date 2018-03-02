@@ -46,7 +46,7 @@ const eventhandle = (function () {
     </div>
     <div class='expanded'>
       <p class='desc'>${bookmarks.desc}</p>
-      <a href="${bookmarks.url}"> <img src="bookmark-tom/link.png"> </img> </a>
+      <a href="${bookmarks.url}"> <img src="styles/link.png"> </img> </a>
     </div>
     </li>`;
     }    

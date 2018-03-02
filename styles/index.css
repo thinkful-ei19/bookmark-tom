@@ -3,7 +3,7 @@
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Audiowide', cursive;
 }
 
 button, input[type="text"] {
@@ -44,4 +44,16 @@ button:hover {
   font-style: italic;
   font-size: 20px;
   margin-bottom: 15px;
+}
+
+.create-form {
+  display: block;
+  color: grey;
+  font-style: italic;
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.titlecard {
+  font-family: 'Audiowide', cursive;
 }
