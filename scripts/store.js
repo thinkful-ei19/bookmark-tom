@@ -12,13 +12,13 @@ const store = (function () {
   };
 
   const findAndDelete = function (id) {
-    console.log('findAndDelete ran');
     this.bookmarks = this.bookmarks.filter(item => item.id !== id);
+    console.log('findAndDelete ran');
   };
 
-  const toggleExpandedView = function () {
+  const toggleExpandedView = function (bookmarks) {
+    this.bookmarks = bookmarks.expanded = true;
     console.log('ExpandedView ran');
-    this.expanded = !this.expanded;
   };
 
   const toggleAdding = function () {

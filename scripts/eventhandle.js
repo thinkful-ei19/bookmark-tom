@@ -7,17 +7,27 @@ const eventhandle = (function () {
 // tested
 
   function generateBookmarkElement(bookmarks) {
-    let bookmarkTitle = `<span>${bookmarks.title}</span>`;
-    let bookmarkStars = `<span>${bookmarks.rating}</span>`;
-    let bookmarkDes = `<p>${bookmarks.desc}</p>`;
-    let link = `<span href='${bookmarks.url}'></span>`;
     return `
-      <li class="js-bookmark-element"${bookmarks.id}">
-        ${bookmarkTitle}
-        ${bookmarkStars}
-        ${bookmarkDes}
-        ${link}
-      </li>`;
+         <li class='js-bookmark-element' data-bookmark-id=${bookmarks.id}>
+    <div class='not-extended'>
+        <p><h1 class='bookmark-title'>${bookmarks.title}</h1>
+        <span class='bookmark-rating'>${bookmarks.rating}</span></p>
+        <div class="bookmark-controls">
+              <button class="bookmark-expand">
+                <span class="button-label">View Details</span>
+              </button>
+              <button class="bookmark-delete">
+                <span class="button-label">Delete Bookmark</span>
+              </button>
+        </div>
+    </div>
+    <div class='hidden'>
+      <p class='desc'>${bookmarks.desc}</p>
+      <form action = ${ bookmarks.url }> 
+      <input type="submit" value='Link to site' >
+      </form >
+    </div>
+</li>`;
   }
 
 
@@ -45,13 +55,13 @@ const eventhandle = (function () {
     }
     console.log('`render` ran');
     const bookmarksString = generateBookmarkString(items);
-    console.log(bookmarksString);
+    // console.log(bookmarksString);
     // insert that HTML into the DOM
     $('.bookmarks').html(bookmarksString);
   }
 
 
-// tested
+  // tested
 
   function handleAddBookmark() {
     $('.bookmark-add').on('click', event => {
@@ -60,7 +70,7 @@ const eventhandle = (function () {
     });
   }
 
-// tested
+  // tested
 
   function handleNewBookmarkSubmit() {
     $('#js-add-bookmark-form').submit(function (event) {
@@ -70,7 +80,8 @@ const eventhandle = (function () {
       const desc = $('.description').val();
       const url = $('.url').val();
       const rating = $('.stars').val();
-      const data = {title, desc, url, rating};
+      const expanded = false;
+      const data = {title, desc, url, rating, expanded};
       console.log(data);
       api.createBookmark(data, (newItem) => {
         store.toggleAdding();
@@ -83,8 +94,8 @@ const eventhandle = (function () {
 
   function getBookmarkIdFromElement(bookmark) {
     return $(bookmark)
-      .closest('.js-item-element')
-      .data('item-id');
+      .closest('.js-bookmark-element')
+      .data('bookmark-id');
   }
 
 
@@ -92,21 +103,21 @@ const eventhandle = (function () {
 
 
   function handleBookmarkDetailedView() {
-    $('.bookmarks').on('click', '.js-bookmark-element', event => {
+    $('.bookmarks').on('click', '.bookmark-expand', event => {
       const id = getBookmarkIdFromElement(event.currentTarget);
       const item = store.findById(id);
-      api.updateBookmark(id, { checked: !item.checked }, () => {
-        store.findAndUpdate(id, { checked: !item.checked });
-        render();
-      });
+      store.toggleExpandedView(item);
+      render();
     });
   }
+  
 
   // this listerner will handle when a user clicks on the delete bookmark option
 
   function handleDeleteBookmark() {
     $('.bookmarks').on('click', '.bookmark-delete', event => {
       const id = getBookmarkIdFromElement(event.currentTarget);
+      console.log(id);
       api.deleteBookmark(id, () => {
         store.findAndDelete(id);
         render();
