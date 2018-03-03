@@ -24,7 +24,7 @@ const eventhandle = (function () {
     </div>
     <div class='expanded hidden'>
       <p class='desc'>${bookmarks.desc}</p>
-       <a href="${bookmarks.url}">
+       <a href="${bookmarks.url}" target="_blank">
           <img src='bookmark-tom/icons8-link-50.png'></img>
           </a>
     </div>
@@ -72,9 +72,9 @@ const eventhandle = (function () {
     });
     console.log(items);
     if (store.adding) {
-      $('.adding').show();
+      $('.adding').show() && $('.nav').hide();
     } else {
-      $('.adding').hide();
+      $('.adding').hide() && $('.nav').show();
     }
     if (store.added) {
       $('#first-bookmark').hide();
@@ -184,6 +184,13 @@ const eventhandle = (function () {
     });
   }
 
+  const handleCancel = function () {
+    $('.cancel').click(function () {
+      store.toggleAdding();
+      render();
+    });
+  };
+
 
 
   function bindEventListeners() {
@@ -193,6 +200,7 @@ const eventhandle = (function () {
     handleDeleteBookmark();
     handleStars();
     handleAddBookmark();
+    handleCancel();
   }
 
   // This object contains the only exposed methods from this module:

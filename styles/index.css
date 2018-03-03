@@ -4,10 +4,14 @@
 
 body {
   font-family: 'Audiowide', cursive;
+  background: silver;
 }
 
 button, input[type="text"] {
   padding: 5px;
+}
+select:hover {
+  cursor: pointer;
 }
 
 button:hover {
@@ -23,7 +27,7 @@ button:hover {
 }
 
 .container {
-  max-width: 600px;
+  max-width: auto;
   margin: 0 auto;
 }
 
@@ -39,8 +43,9 @@ button:hover {
 }
 
 .js-bookmark-item {
-  display: block;
+  display: inline-block;
   color: grey;
+  border
   font-style: italic;
   font-size: 20px;
   margin-bottom: 15px;
