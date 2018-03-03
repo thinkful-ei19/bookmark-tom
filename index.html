@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link href="https://fonts.googleapis.com/css?family=Audiowide" rel="stylesheet">
   <link rel="stylesheet" href="styles/index.css">
@@ -16,6 +17,7 @@
     <h1 class="titlecard">My Bookmarks</h1>
     <section class='nav'>
         <button type="button" id='add-button' class="bookmark-add">Add Bookmark</button>
+        <label for="select">Star Rating</label>
           <select name="Minimum Rating" class='stars'>
             <option>1</option>
             <option>2</option>
@@ -31,6 +33,7 @@
                 <input type="text"  class="title">Title
                 <input class="description">Description
                 <input type="text" class='url'>URL
+                <label for="select">Star Rating</label>
                 <select name="Minimum Rating" class='stars'>Rating
                   <option>1</option>
                   <option>2</option>
@@ -39,6 +42,13 @@
                   <option>5</option>
                 </select>
                 <button type="submit">Submit</button>
+              </div>
+              <div class="rating">
+                <span>☆</span>
+                <span>☆</span>
+                <span>☆</span>
+                <span>☆</span>
+                <span>☆</span>
               </div>
           </form>
         </section>

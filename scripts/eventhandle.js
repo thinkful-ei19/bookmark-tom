@@ -46,7 +46,9 @@ const eventhandle = (function () {
     </div>
     <div class='expanded'>
       <p class='desc'>${bookmarks.desc}</p>
-      <a href="${bookmarks.url}"> <img src="styles/link.png"> </img> </a>
+      <a href="${bookmarks.url}"target="_blank"> 
+      <img src="styles/link.png"> </img>
+       </a>
     </div>
     </li>`;
     }    
@@ -65,9 +67,9 @@ const eventhandle = (function () {
   // render function 
 
   function render() {
-    let items = store.bookmarks;
-    console.log(items);
-    items.filter(item => item.rating >= 3);
+    let items = store.bookmarks.filter(item => {
+      item.rating >= store.minRating;
+    });
     console.log(items);
     if (store.adding) {
       $('.adding').show();
@@ -76,8 +78,9 @@ const eventhandle = (function () {
     }
     if (store.added) {
       $('#first-bookmark').hide();
+    } else {
+      $('#first-bookmark').show();
     }
-    console.log('`render` ran');
     const bookmarksString = generateBookmarkString(items);
     $('.bookmarks').html(bookmarksString);
   }
@@ -175,6 +178,7 @@ const eventhandle = (function () {
     $('.stars').on('change', function () {
       const stars = $('.stars').val();
       console.log(stars);
+      console.log(typeof stars);
       store.ratingToggle(stars);
       render();
     });

@@ -31,9 +31,9 @@ const store = (function () {
     this.added = !this.added;
   };
 
-  const ratingToggle = function () {
+  const ratingToggle = function (stars) {
+    this.minRating = parseInt(stars);
     console.log('rating sorted');
-    this.minRating = !this.minRating;
   };
 
 
