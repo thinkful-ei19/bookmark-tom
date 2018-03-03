@@ -42,18 +42,17 @@ button:hover {
   padding: 20px;
 }
 
-.js-bookmark-item {
-  display: inline-block;
-  color: grey;
-  border
+.js-bookmark-element {
+  float: left;
   font-style: italic;
   font-size: 20px;
-  margin-bottom: 15px;
+  border: solid black 10px;
+  border-radius: 6px;
+  background-color: whitesmoke; 
 }
 
 .create-form {
-  display: block;
-  color: grey;
+  float: left;
   font-style: italic;
   font-size: 20px;
   margin-bottom: 15px;

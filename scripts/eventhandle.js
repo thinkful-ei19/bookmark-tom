@@ -12,7 +12,7 @@ const eventhandle = (function () {
          <li class='js-bookmark-element' data-bookmark-id=${bookmarks.id}>
     <div class='not-extended'>
         <p><h1 class='bookmark-title'>${bookmarks.title}</h1>
-        <span class='bookmark-rating'>${bookmarks.rating}</span></p>
+        <span class='bookmark-rating'>${bookmarks.rating}Star Rating</span></p>
         <div class="bookmark-controls">
               <button class="bookmark-expand">
                 <span class="button-label">View Details</span>
@@ -34,7 +34,14 @@ const eventhandle = (function () {
          <li class='js-bookmark-element' data-bookmark-id=${bookmarks.id}>
     <div class='not-extended'>
         <p><h1 class='bookmark-title'>${bookmarks.title}</h1>
-        <span class='bookmark-rating'>${bookmarks.rating}</span></p>
+        <span class='bookmark-rating'>${bookmarks.rating}Star Rating</span></p>
+            </div>
+    <div class='expanded'>
+      <p class='desc'>${bookmarks.desc}</p>
+      <a href="${bookmarks.url}"target="_blank"> 
+      <img src="styles/link.png"> </img>
+       </a>
+    </div>
         <div class="bookmark-controls">
               <button class="bookmark-expand">
                 <span class="button-label">View Details</span>
@@ -43,13 +50,6 @@ const eventhandle = (function () {
                 <span class="button-label">Delete Bookmark</span>
               </button>
         </div>
-    </div>
-    <div class='expanded'>
-      <p class='desc'>${bookmarks.desc}</p>
-      <a href="${bookmarks.url}"target="_blank"> 
-      <img src="styles/link.png"> </img>
-       </a>
-    </div>
     </li>`;
     }    
   }
