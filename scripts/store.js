@@ -32,8 +32,7 @@ const store = (function () {
   };
 
   const ratingToggle = function (stars) {
-    this.minRating = parseInt(stars);
-    console.log('rating sorted');
+    this.minRating = stars === 1 ? stars : parseInt(stars);
   };
 
 

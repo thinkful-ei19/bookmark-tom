@@ -58,7 +58,7 @@ const eventhandle = (function () {
   // tested
   // eslint-disable-next-line no-unused-vars
   function generateBookmarkString(items) {
-    const links = store.bookmarks.map((item) => generateBookmarkElement(item));
+    const links = items.map((item) => generateBookmarkElement(item));
     console.log('generate string ran');
     return links.join('');
 
@@ -67,9 +67,12 @@ const eventhandle = (function () {
   // render function 
 
   function render() {
-    let items = store.bookmarks.filter(item => {
-      item.rating >= store.minRating;
-    });
+    let items = store.bookmarks.filter(obj => obj.rating >= store.minRating);
+    
+    // .filter(item => {
+    //   return item.rating >= store.minRating;
+    // });
+    // if (items.rateing)
     console.log(items);
     if (store.adding) {
       $('.adding').show() && $('.nav').hide();
@@ -77,9 +80,9 @@ const eventhandle = (function () {
       $('.adding').hide() && $('.nav').show();
     }
     if (store.added) {
-      $('#first-bookmark').hide();
+      $('.introPlaceholder').hide();
     } else {
-      $('#first-bookmark').show();
+      $('.introPlaceholder').show();
     }
     const bookmarksString = generateBookmarkString(items);
     $('.bookmarks').html(bookmarksString);
@@ -88,9 +91,7 @@ const eventhandle = (function () {
   // tested
 
   function handleIntro() {
-    let numOfBookmarks = $('.bookmarks ul').length;
-    console.log(numOfBookmarks);
-    if (numOfBookmarks >= 1) {
+    if ($('.bookmarks ul li').length >= 1) {
       store.toggleIntro();
       console.log('intro gone');
       render();

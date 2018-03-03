@@ -62,3 +62,8 @@ button:hover {
 .titlecard {
   font-family: 'Audiowide', cursive;
 }
+
+#js-add-bookmark-form {
+  border: black;
+  display: flex;
+}
