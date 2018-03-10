@@ -63,3 +63,7 @@ button:hover {
 .titlecard {
   font-family: 'Audiowide', cursive;
 }
+
+#starsort {
+display: inline;
+}  

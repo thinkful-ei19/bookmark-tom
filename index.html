@@ -17,8 +17,8 @@
     <h1 class="titlecard">My Bookmarks</h1>
     <section class='nav hidden'>
         <button type="button" id='add-button' class="bookmark-add">Add Bookmark</button>
-        <form action="sort by rating" id='starsort'>
         <label for="select">Minimum Star Rating</label>
+        <form action="sort by rating" id='starsort'>
             <select name="Minimum Rating" class='stars' aria-controls="1-5 Rating">
               <option>1</option>
               <option>2</option>
@@ -31,12 +31,12 @@
         <section class="adding hidden">
           <fieldset action="" id="js-add-bookmark-form">
               <form class="create-form">
-                <input type="text"  class="title" maxlength="30" placeholder="Enter Title" required>
                 <label for="title">Title</label>
+                <input type="text"  class="title" maxlength="30" placeholder="Enter Title" required>
+                <label for="descirption">Description</label>
                 <input class="description" maxlength="45" placeholder="Enter Description">
-                <label for="descirption">Description</label>   
-                <input type="url" class='url'placeholder="ex: http://www...." required>
                 <label for="URL">URL</label>
+                <input type="url" class='url'placeholder="ex: http://www...." required> 
                   <div class="rating-radio" aria-controls="1-5 Rating">
                         <input id="rating1" type="radio" name="rating" value="1" checked>
                         <label for="rating1">1☆</label>
