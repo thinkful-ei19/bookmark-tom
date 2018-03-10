@@ -29,23 +29,26 @@
         </form>
     </section>
         <section class="adding hidden">
-          <form action="" id="js-add-bookmark-form">
-            <h1>Create a Bookmark</<h1>
-              <div class="create-form">
-                 Title <input type="text"  class="title">
-                 Description <input class="description">
-                 URL <input type="text" class='url'>
-                 How many stars?<label for="select"></label>
-                <select name="Minimum Rating" class='stars'>
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
-                </select>
+          <fieldset action="" id="js-add-bookmark-form">
+              <form class="create-form">
+                 Title <input type="text"  class="title" maxlength="30" placeholder="Enter Title" required>
+                 Description <input class="description" maxlength="45" placeholder="Enter Description">
+                 URL <input type="url" class='url'placeholder="ex: http://www...." required>
+                      <div class="rating-radio" aria-controls="1-5 Rating">
+                        <input id="rating1" type="radio" name="rating" value="1" checked>
+                        <label for="rating1">1☆</label>
+                        <input id="rating2" type="radio" name="rating" value="2">
+                        <label for="rating2">2☆</label>
+                        <input id="rating3" type="radio" name="rating" value="3">
+                        <label for="rating3">3☆</label>
+                        <input id="rating4" type="radio" name="rating" value="4">
+                        <label for="rating4">4☆</label>
+                        <input id="rating5" type="radio" name="rating" value="5">
+                        <label for="rating5">5☆</label>
+                      </div>
                 <button type="submit">Submit</button>
                 <button class="cancel" type="button">Cancel</button>
-              </div>
+                </form>
               <!-- <div class="rating">
                 <span>☆</span>
                 <span>☆</span>
@@ -54,7 +57,7 @@
                 <span>☆</span>
               </div> -->
              
-          </form>
+          </fieldset>
         </section>
   </header>
   <main role='main'>

@@ -12,7 +12,7 @@ const eventhandle = (function () {
          <li class='js-bookmark-element' data-bookmark-id=${bookmarks.id}>
     <div class='not-extended'>
         <p><h1 class='bookmark-title'>${bookmarks.title}</h1>
-        <span class='bookmark-rating'>${bookmarks.rating}`  `Star Rating</span></p>
+        <span class='bookmark-rating'>${bookmarks.rating}Star Rating</span></p>
         <div class="bookmark-controls">
               <button class="bookmark-expand">
                 <span class="button-label">View Details</span>
@@ -22,19 +22,13 @@ const eventhandle = (function () {
               </button>
         </div>
     </div>
-    <div class='expanded hidden'>
-      <p class='desc'>${bookmarks.desc}</p>
-       <a href="${bookmarks.url}" target="_blank">
-          <img src='bookmark-tom/icons8-link-50.png'></img>
-          </a>
-    </div>
 </li>`;
     } else {
       return `
          <li class='js-bookmark-element' data-bookmark-id=${bookmarks.id}>
     <div class='not-extended'>
         <p><h1 class='bookmark-title'>${bookmarks.title}</h1>
-        <span class='bookmark-rating'>${bookmarks.rating}Star Rating</span></p>
+        <span class='bookmark-rating'>${bookmarks.rating} ☆ Star Rating</span></p>
             </div>
     <div class='expanded'>
       <p class='desc'>${bookmarks.desc}</p>
@@ -119,7 +113,7 @@ const eventhandle = (function () {
       const title = $('.title').val();
       const desc = $('.description').val();
       const url = $('.url').val();
-      const rating = $('.stars').val();
+      const rating = $('input[type="radio"][name="rating"]:checked').val();
       const expanded = false;
       const data = { title, desc, url, rating, expanded };
       console.log(data);

@@ -16,6 +16,7 @@ select:hover {
 
 button:hover {
   cursor: pointer;
+  color: gold;
 }
 
 .hidden {
@@ -23,7 +24,7 @@ button:hover {
 }
 
 .js-bookmark-item {
-  width: 250px;
+  width: auto;
 }
 
 .container {
@@ -40,6 +41,7 @@ button:hover {
   margin-bottom: 20px;
   border: 1px solid grey;
   padding: 20px;
+  
 }
 
 .js-bookmark-element {
@@ -60,9 +62,4 @@ button:hover {
 
 .titlecard {
   font-family: 'Audiowide', cursive;
-}
-
-#js-add-bookmark-form {
-  border: black;
-  display: flex;
 }
