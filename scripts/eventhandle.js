@@ -7,12 +7,12 @@ const eventhandle = (function () {
   // tested
 
   function generateBookmarkElement(bookmarks) {
-    if (bookmarks.expanded) {
+    if (!bookmarks.expanded) {
       return `
          <li class='js-bookmark-element' data-bookmark-id=${bookmarks.id}>
     <div class='not-extended'>
         <p><h1 class='bookmark-title'>${bookmarks.title}</h1>
-        <span class='bookmark-rating'>${bookmarks.rating}Star Rating</span></p>
+        <span class='bookmark-rating'>${bookmarks.rating} ☆ Star Rating</span></p>
         <div class="bookmark-controls">
               <button class="bookmark-expand">
                 <span class="button-label">View Details</span>

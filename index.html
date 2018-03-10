@@ -30,12 +30,13 @@
     </section>
         <section class="adding hidden">
           <fieldset action="" id="js-add-bookmark-form">
+            <legend>New Bookmark</legend>
               <form class="create-form">
                 <label for="title">Title</label>
-                <input type="text"  class="title" maxlength="30" placeholder="Enter Title" required>
-                <label for="descirption">Description</label>
-                <input class="description" maxlength="45" placeholder="Enter Description">
-                <label for="URL">URL</label>
+                <input aria-label="Title" type="text"  class="title" maxlength="30" placeholder="Enter Title" required>
+                <label for="description">Description</label>
+                <input class="description" aria-label="description" maxlength="45" placeholder="Enter Description">
+                <label for="URL" aria-label="url">URL</label>
                 <input type="url" class='url'placeholder="ex: http://www...." required> 
                   <div class="rating-radio" aria-controls="1-5 Rating">
                         <input id="rating1" type="radio" name="rating" value="1" checked>

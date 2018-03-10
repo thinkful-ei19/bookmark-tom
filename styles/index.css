@@ -45,12 +45,19 @@ button:hover {
 }
 
 .js-bookmark-element {
-  float: left;
+  display: inline-table;
   font-style: italic;
   font-size: 20px;
   border: solid black 10px;
   border-radius: 6px;
   background-color: whitesmoke; 
+}
+.js-bookmark-element:expanded true {
+  display: inline-block;
+}
+
+li.js-bookmark-element:hover {
+  background-color: gold;
 }
 
 .create-form {
@@ -67,3 +74,9 @@ button:hover {
 #starsort {
 display: inline;
 }  
+
+fieldset#js-add-bookmark-form {
+  border: 5px solid black;
+  box-shadow: gold;
+}
+
